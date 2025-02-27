@@ -608,6 +608,23 @@ blocks:
     coordinate: [1088, 48.0]
     rotation: 0
     state: enabled
+- name: pdu_pdu_to_tagged_stream_0
+  id: pdu_pdu_to_tagged_stream
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    tag: packet_len
+    type: byte
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [304, 192.0]
+    rotation: 0
+    state: disabled
 - name: qtgui_const_sink_x_0_0
   id: qtgui_const_sink_x
   parameters:
@@ -1201,6 +1218,24 @@ blocks:
     coordinate: [744, 636.0]
     rotation: 0
     state: disabled
+- name: zeromq_sub_msg_source_0
+  id: zeromq_sub_msg_source
+  parameters:
+    address: tcp://voltron.byu.edu:5555
+    affinity: ''
+    alias: ''
+    bind: 'False'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    timeout: '100'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [40, 176.0]
+    rotation: 0
+    state: disabled
 
 connections:
 - [analog_agc_xx_1, '0', digital_fll_band_edge_cc_0, '0']
@@ -1223,7 +1258,9 @@ connections:
 - [digital_symbol_sync_xx_0, '0', digital_costas_loop_cc_0, '0']
 - [digital_symbol_sync_xx_0, '0', qtgui_const_sink_x_0_0, '0']
 - [iio_pluto_source_0, '0', analog_agc_xx_1, '0']
+- [pdu_pdu_to_tagged_stream_0, '0', digital_constellation_modulator_0, '0']
+- [zeromq_sub_msg_source_0, out, pdu_pdu_to_tagged_stream_0, pdus]
 
 metadata:
   file_format: 1
-  grc_version: 3.10.9.2
+  grc_version: 3.10.10.0

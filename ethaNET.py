@@ -92,7 +92,7 @@ class EthaNET:
         self.recv_socket = self.context.socket(zmq.SUB)
         self.recv_socket.connect(self.grc_recv_addr)
         self.recv_socket.setsockopt(zmq.SUBSCRIBE, b"")
-        self.recv_socket.setsockopt(zmq.RCVTIMEO,50) # 50ms timeout
+        self.recv_socket.setsockopt(zmq.RCVTIMEO,1) # 50ms timeout
 
     def _serialize_packet(self,packet:bytes):
         pdu = pmt.cons(pmt.PMT_NIL, pmt.init_u8vector(len(packet), list(packet)))
@@ -105,7 +105,7 @@ class EthaNET:
 
     # TODO
     def _calc_frame_time(self,mcs):
-        return 0.05 # TODO, actually calculate what the max frame time would be for the mcs?? or should it be max time at the lowest mcs??
+        return 0.01 # TODO, actually calculate what the max frame time would be for the mcs?? or should it be max time at the lowest mcs??
     
 
     # TODO
