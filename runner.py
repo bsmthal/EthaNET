@@ -7,7 +7,7 @@ from ethaNET import EthaNET
 logging.basicConfig()
 logger = logging.getLogger()
 
-def send(ethan,input_file,mtu, mcs_level,destination_addr):
+def send(ethan: EthaNET,input_file,mtu, mcs_level,destination_addr):
     try:
         while True:
             # Read data from file
@@ -29,8 +29,20 @@ def send(ethan,input_file,mtu, mcs_level,destination_addr):
     logger.info(f"Done sending from {input_file.name}")
 
 #TODO
-def receive(ethan,num_bytes, output_file):
-    pass
+def receive(ethan: EthaNET,num_bytes, output_file):
+    try:
+        while True:
+            # receive data
+            packet_in = ethan.receive(5000) # 5 second timeout
+            if packet_in is None:
+                logger.debug("No packet received")
+                continue
+            else:
+                logger.info(f"Received data: {packet_in.payload}")
+
+    except KeyboardInterrupt:
+        logger.info("\nExiting...")
+        return
 
 def main(verbose, address,grc_transmit_addr,grc_receive_addr, func, **kwargs):
     logger.setLevel(verbose)

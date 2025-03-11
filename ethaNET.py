@@ -39,46 +39,46 @@ class EthaNET:
             logger.debug(f"Sending packet to {dest_addr} with seq {self.send_seq_num}")
             self.send_socket.send(serialized_packet_bytes)
 
-            # wait to get an ack, if if doesn't come within a specific time, do backoff
-            # we could do a measurement but i think 50ms might be good??
-            # self.recv_socket.setsockopt(zmq.RCVTIMEO,50) # 50ms timeout
-            try:
-                # logger.debug(f"Listening for response from GNURADIO at {self.grc_recv_addr}")
-                serialized_ack_bytes = self.recv_socket.recv()
-                ack_bytes = self._deserialize_packet(serialized_ack_bytes)
-                print(ack_bytes)
-                # turn it into a packet object and extract header
-                # TODO
-                #check header to make sure we acked the right thing
-                # TODO
-                # if we haved acked the correct thing, advance the sequence number and break out of while loop
+            # logger.debug(f"Listening for response from GNURADIO at {self.grc_recv_addr}")
+            ack_packet = self.receive(timeout=50)
+            if ack_packet is None:
+                logger.debug(f"No ACK received for seq: {self.send_seq_num}")
+            elif self._ack_recv(ack_packet):
+                logger.debug(f"Received ACK for seq: {self.send_seq_num}")
+                # increment the sequence number
                 self.send_seq_num += 1
                 break
-            except zmq.Again:
-                logger.debug(f"\t\tDidn't receive ACK for seq: {self.send_seq_num}")
-
 
             k = min(num_attempts,10) # capped at 10
             R = random.uniform(0,2**k-1)
             backoff_time = R * self._calc_frame_time(mcs_level)
             logger.debug(f"\t\tBacking off for the {num_attempts}th time. backoff {backoff_time}")
             time.sleep(backoff_time)
-            num_attempts += 1
-            
+            num_attempts += 1 
 
-    # TODO
-    def receive(self):
-        # listen on the recv_socket
-
-        # create packet object from deseralized bytes
-
-        # decode the encoded payload
-
-        # ACK the packet (use the send function?)
-
-        # pass the packet to somebody to do interesting things with the data
+    def receive(self, timeout=60000):
+        self.recv_socket.setsockopt(zmq.RCVTIMEO, timeout)
         
-        pass
+        try:
+            data_in = self.recv_socket.recv()
+        except zmq.Again:
+            return None  # Indicate timeout occurred
+
+        # Create packet object from deserialized bytes
+        packet = self._deserialize_packet(data_in)
+
+        # Decode the encoded payload
+        header = packet[:6]
+        payload = packet[6:]
+        
+        if not Packet.validate_checksum(payload):
+            logger.debug("Invalid checksum! Discarding packet")
+            return None  # Explicitly return None for invalid packets
+
+        packet = Packet.unpack_header(header)
+        packet.payload = payload
+
+        return packet
 
     def _open_send_socket(self):
         if self.context is None:
@@ -92,7 +92,6 @@ class EthaNET:
         self.recv_socket = self.context.socket(zmq.SUB)
         self.recv_socket.connect(self.grc_recv_addr)
         self.recv_socket.setsockopt(zmq.SUBSCRIBE, b"")
-        self.recv_socket.setsockopt(zmq.RCVTIMEO,1) # 50ms timeout
 
     def _serialize_packet(self,packet:bytes):
         pdu = pmt.cons(pmt.PMT_NIL, pmt.init_u8vector(len(packet), list(packet)))
@@ -107,8 +106,10 @@ class EthaNET:
     def _calc_frame_time(self,mcs):
         return 0.01 # TODO, actually calculate what the max frame time would be for the mcs?? or should it be max time at the lowest mcs??
     
-
-    # TODO
-    def _ack_recv(self,packet:bytes):
-        # figure out if the ACK was good, if so return true
+    def _ack_recv(self,packet:Packet):
+        # check if the packet is an ack packet
+        if packet.sequence_number != self.send_seq_num:
+            return False
+        if packet.payload != b"ACK":
+            return False        
         return True
