@@ -255,7 +255,7 @@ blocks:
     bus_structure: null
     coordinate: [48, 316.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: analog_sig_source_x_0
   id: analog_sig_source_x
   parameters:
@@ -624,7 +624,7 @@ blocks:
     bus_structure: null
     coordinate: [304, 192.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: qtgui_const_sink_x_0_0
   id: qtgui_const_sink_x
   parameters:
@@ -1221,7 +1221,7 @@ blocks:
 - name: zeromq_sub_msg_source_0
   id: zeromq_sub_msg_source
   parameters:
-    address: tcp://voltron.byu.edu:5555
+    address: tcp://127.0.0.1:5555
     affinity: ''
     alias: ''
     bind: 'False'
@@ -1235,7 +1235,7 @@ blocks:
     bus_structure: null
     coordinate: [40, 176.0]
     rotation: 0
-    state: disabled
+    state: enabled
 
 connections:
 - [analog_agc_xx_1, '0', digital_fll_band_edge_cc_0, '0']
@@ -1263,4 +1263,4 @@ connections:
 
 metadata:
   file_format: 1
-  grc_version: 3.10.9.2
+  grc_version: 3.10.10.0

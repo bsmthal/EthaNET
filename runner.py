@@ -76,7 +76,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--grc_receive_addr",
         type=str,
-        default="tcp://voltron.byu.edu:5556",
+        default="tcp://127.0.0.1:5556",
         help="Address of ZMQ socket of gnuradio receive flow"
     )
     subparsers = parser.add_subparsers(title="mode", required=True)
