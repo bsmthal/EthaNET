@@ -7,8 +7,8 @@ from ethaNET import EthaNET
 
 # ---------------------------------------------------------------------------------------------- #
 # |          |          |          |          |          |          |                          | #
-# |   MCS    |   LEN    |   SEQ    |   DES    |   SRC    |   CRC    |           DATA           | #
-# |  1 byte  |  1 byte  |  1 byte  |  1 byte  |  1 byte  |  1 byte  |       0-8192 bytes       | #
+# |   MCS    |   LEN    |   SEQ    |   DES    |   SRC    |   CRC    |          PAYLOAD         | #
+# |  1 byte  |  1 byte  |  1 byte  |  1 byte  |  1 byte  |  1 byte  |        0-256 bytes       | #
 # ---------------------------------------------------------------------------------------------- #
 
 
