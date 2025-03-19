@@ -4,16 +4,27 @@ import logging
 import sys
 from ethaNET import EthaNET
 
+
+# ---------------------------------------------------------------------------------------------- #
+# |          |          |          |          |          |          |                          | #
+# |   MCS    |   LEN    |   SEQ    |   DES    |   SRC    |   CRC    |           DATA           | #
+# |  1 byte  |  1 byte  |  1 byte  |  1 byte  |  1 byte  |  1 byte  |       0-8192 bytes       | #
+# ---------------------------------------------------------------------------------------------- #
+
+
 logging.basicConfig()
 logger = logging.getLogger()
 
-def send(ethan: EthaNET,input_file,mtu, mcs_level,destination_addr):
+
+def send(ethan: EthaNET, input_file, mtu, mcs_level, destination_addr):
     try:
         while True:
             # Read data from file
             if input_file.name == "<stdin>":
-                #inform the user to input something
-                logger.info("Please input data into stdin followed by Ctrl-d twice on Linux or Ctrl-z followed by Enter on Windows")
+                # inform the user to input something
+                logger.info(
+                    "Please input data into stdin followed by Ctrl-d twice on Linux or Ctrl-z followed by Enter on Windows"
+                )
             data = input_file.read(mtu)
 
             # If it is zero that means we have read to EOF so we are done
@@ -21,19 +32,20 @@ def send(ethan: EthaNET,input_file,mtu, mcs_level,destination_addr):
                 break
 
             logger.info(f"Sending data: {data}")
-            ethan.send(data,destination_addr, mcs_level)
+            ethan.send(data, destination_addr, mcs_level)
 
     except KeyboardInterrupt:
         logger.info("\nExiting...")
         return
     logger.info(f"Done sending from {input_file.name}")
 
-#TODO
-def receive(ethan: EthaNET,num_bytes, output_file):
+
+# TODO
+def receive(ethan: EthaNET, num_bytes, output_file):
     try:
         while True:
             # receive data
-            packet_in = ethan.receive(5000) # 5 second timeout
+            packet_in = ethan.receive(5000)  # 5 second timeout
             if packet_in is None:
                 logger.debug("No packet received")
                 continue
@@ -44,11 +56,19 @@ def receive(ethan: EthaNET,num_bytes, output_file):
         logger.info("\nExiting...")
         return
 
-def main(verbose, address,grc_transmit_addr,grc_receive_addr, func, **kwargs):
+
+def main(verbose, address, grc_transmit_addr, grc_receive_addr, func, **kwargs):
     logger.setLevel(verbose)
-    logger.debug(f"Creating EthaNet object with {address} addr, {grc_transmit_addr} grc_trans_addr, and {grc_receive_addr} grc_receive_addr")
-    ethan = EthaNET(source_addr=address,grc_send_addr=grc_transmit_addr,grc_recv_addr=grc_receive_addr)
+    logger.debug(
+        f"Creating EthaNet object with {address} addr, {grc_transmit_addr} grc_trans_addr, and {grc_receive_addr} grc_receive_addr"
+    )
+    ethan = EthaNET(
+        source_addr=address,
+        grc_send_addr=grc_transmit_addr,
+        grc_recv_addr=grc_receive_addr,
+    )
     func(ethan, **kwargs)
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -61,23 +81,23 @@ if __name__ == "__main__":
         help="Sets verbosity level. The more added the higher the verbosity. -vv is the highest and will print debug statements",
     )
     parser.add_argument(
-        '--address',
-        '-a',
+        "--address",
+        "-a",
         type=int,
         default=0,
-        help="What is this nodes address (0) [0-255]"
+        help="What is this nodes address (0) [0-255]",
     )
     parser.add_argument(
         "--grc_transmit_addr",
         type=str,
         default="tcp://*:5555",
-        help="Address of ZMQ socket of gnuradio transmitter flow"
+        help="Address of ZMQ socket of gnuradio transmitter flow",
     )
     parser.add_argument(
         "--grc_receive_addr",
         type=str,
         default="tcp://127.0.0.1:5556",
-        help="Address of ZMQ socket of gnuradio receive flow"
+        help="Address of ZMQ socket of gnuradio receive flow",
     )
     subparsers = parser.add_subparsers(title="mode", required=True)
 
@@ -88,13 +108,13 @@ if __name__ == "__main__":
         "--input_file",
         type=argparse.FileType("rb"),
         default=sys.stdin.buffer,
-        help="Input data location (stdin)"
+        help="Input data location (stdin)",
     )
     sender_parser.add_argument(
         "--mtu",
         type=int,
         default=32,
-        help="Message size length if input data needs to be chunked (32) [0-255]"
+        help="Message size length if input data needs to be chunked (32) [0-255]",
     )
     sender_parser.add_argument(
         "-m",
@@ -108,7 +128,7 @@ if __name__ == "__main__":
         "-d",
         type=int,
         default=0,
-        help="address of node this node is attempting to send info to"
+        help="address of node this node is attempting to send info to",
     )
 
     receiver_parser = subparsers.add_parser("receive", aliases=["r"])

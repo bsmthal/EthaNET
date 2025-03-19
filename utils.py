@@ -1,11 +1,27 @@
 import struct
 import crc8
 
+
+# ---------------------------------------------------------------------------------------------- #
+# |          |          |          |          |          |          |                          | #
+# |   MCS    |   LEN    |   SEQ    |   DES    |   SRC    |   CRC    |           DATA           | #
+# |  1 byte  |  1 byte  |  1 byte  |  1 byte  |  1 byte  |  1 byte  |       0-8192 bytes       | #
+# ---------------------------------------------------------------------------------------------- #
+
+
 class Packet:
     struct_format = "!BBBBBB"
-    header_size = struct.calcsize(struct_format) 
+    header_size = struct.calcsize(struct_format)
 
-    def __init__(self, mcs:int, sequence_number:int, dest_addr: int, source_addr:int, checksum:bytes=None, message_length:int=None):
+    def __init__(
+        self,
+        mcs: int,
+        sequence_number: int,
+        dest_addr: int,
+        source_addr: int,
+        checksum: bytes = None,
+        message_length: int = None,
+    ):
         if not 0 <= mcs < 256:
             raise ValueError(f"MCS must be a 8-bit number ({mcs}).")
 
@@ -38,13 +54,21 @@ class Packet:
         return f"mcs: {self.mcs}, seqNum: {self.sequence_number}, d_addr: {self.dest_addr}, s_addr: {self.source_addr}, len: {self.message_length}, payload: {self.payload}"
 
     @classmethod
-    def calculate_checksum(cls, mcs:int, message_length:int, sequence_number:int, dest_addr: int, source_addr:int,payload:bytes)->bytes:
+    def calculate_checksum(
+        cls,
+        mcs: int,
+        message_length: int,
+        sequence_number: int,
+        dest_addr: int,
+        source_addr: int,
+        payload: bytes,
+    ) -> bytes:
         data = (
             mcs.to_bytes(1, "big")
             + message_length.to_bytes(1, "big")
-            + sequence_number.to_bytes(1,"big")
-            + dest_addr.to_bytes(1,'big')
-            + source_addr.to_bytes(1,'big')
+            + sequence_number.to_bytes(1, "big")
+            + dest_addr.to_bytes(1, "big")
+            + source_addr.to_bytes(1, "big")
             + payload
         )
 
@@ -53,10 +77,15 @@ class Packet:
     def validate_checksum(self, payload):
         """Generate checksum for payload and compare to packet checksum."""
         return self.checksum == self.calculate_checksum(
-            self.mcs, self.message_length, self.sequence_number, self.dest_addr, self.source_addr, payload
+            self.mcs,
+            self.message_length,
+            self.sequence_number,
+            self.dest_addr,
+            self.source_addr,
+            payload,
         )
 
-    def pack(self, payload:bytes) -> bytes:
+    def pack(self, payload: bytes) -> bytes:
         """Complete header and package header and payload together."""
         self.message_length = len(payload)
 
@@ -67,7 +96,12 @@ class Packet:
 
         self.payload = payload
         self.checksum = self.calculate_checksum(
-            self.mcs, self.message_length, self.sequence_number, self.dest_addr, self.source_addr, payload
+            self.mcs,
+            self.message_length,
+            self.sequence_number,
+            self.dest_addr,
+            self.source_addr,
+            payload,
         )
 
         return self.allBytes()
@@ -75,7 +109,7 @@ class Packet:
     def allBytes(self):
         if self.checksum is None or self.payload is None or self.message_length is None:
             raise ValueError("Not all packet fields are populated")
-        
+
         # print(f"{type(self.mcs)}, {type(self.message_length)} {type(self.sequence_number)} {type(self.dest_addr)} {type(self.source_addr)} {type(self.checksum)}")
 
         header = struct.pack(
@@ -85,8 +119,9 @@ class Packet:
             self.sequence_number,
             self.dest_addr,
             self.source_addr,
-            ord(self.checksum), # conflicted on this, i decided to make it a decimal to keep the struct structure flowing nicely, definitely better ways of doing this
-            
+            ord(
+                self.checksum
+            ),  # conflicted on this, i decided to make it a decimal to keep the struct structure flowing nicely, definitely better ways of doing this
         )
         return header + self.payload
 
@@ -96,10 +131,17 @@ class Packet:
         if len(header) != cls.header_size:
             raise ValueError(f"Header must be {cls.header_size} bytes")
 
-        mcs, message_length, sequence_number,d_addr, s_addr,checksum = struct.unpack_from(
-            cls.struct_format, header
+        mcs, message_length, sequence_number, d_addr, s_addr, checksum = (
+            struct.unpack_from(cls.struct_format, header)
         )
 
-        header = cls(mcs=mcs, sequence_number=sequence_number,checksum=checksum,message_length=message_length, dest_addr=d_addr,source_addr=s_addr)
+        header = cls(
+            mcs=mcs,
+            sequence_number=sequence_number,
+            checksum=checksum,
+            message_length=message_length,
+            dest_addr=d_addr,
+            source_addr=s_addr,
+        )
 
         return header
