@@ -4,6 +4,8 @@ import time
 import pmt
 import zmq
 import logging
+import hamming as hamm
+import byteTransforms as bt
 
 logging.basicConfig()
 logger = logging.getLogger("ethanNet")
@@ -33,18 +35,21 @@ class EthaNET:
         self.grc_recv_addr = grc_recv_addr
         self._open_recv_socket()
 
-    def send(self, data, dest_addr, mcs_level):
+    def send(self, data: bytes, dest_addr, mcs_level):
         # generate packet
         packet = Packet(mcs_level, self.send_seq_num, dest_addr, self.source_addr)
 
-        # add encoding to the data
+        # add encoding to the payload
+        #*********************** FIX ***************************
+        # encoder should be put in the constructor because its slow to intialize
+        # the .encode() method expects a reshaped numpy array
+        Encoder = hamm.encoder(order=3)
+        coded_data = bt.bitListToPacket(Encoder.encode(bt.packetToBitList(data)))
+        #*********************** FIX ***************************
 
         # first 6 bytes are the header and the rest is payload
-        packet_bytes = packet.pack(data)
-        bits = bytes_to_bit_list(packet_bytes)
-        bit_groups = bytes_to_grouped_bit_list(packet_bytes)
-        print(bit_groups[:6])
-        print(bit_groups[6:])
+        packet_bytes = packet.pack(coded_data)
+
         # we need to now set up the aloha scheme
         # we will try to transmit and see if we get an ACK back
         # we try at first, if we fail we do some exponential backoff and send again until we get an ack
@@ -86,13 +91,18 @@ class EthaNET:
         # Create packet object from deserialized bytes
         packet = self._deserialize_packet(data_in)
 
-        # Decode the encoded payload
+        # Separate the header from encoded payload
         header = packet[:6]
-        payload = packet[6:]
+        coded_payload = packet[6:]
 
-        if not Packet.validate_checksum(payload):
+        # Validate checksum
+        if not Packet.validate_checksum(coded_payload):
             logger.debug("Invalid checksum! Discarding packet")
             return None  # Explicitly return None for invalid packets
+
+        # Decode payload
+        Decoder = hamm.decoder(order=3)
+        payload = bt.bitListToPacket(Decoder.decode(bt.packetToBitList(coded_payload)))
 
         packet = Packet.unpack_header(header)
         packet.payload = payload
