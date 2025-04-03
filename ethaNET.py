@@ -1,4 +1,4 @@
-from utils import Packet
+from utils import *
 import random
 import time
 import pmt
@@ -41,7 +41,10 @@ class EthaNET:
 
         # first 6 bytes are the header and the rest is payload
         packet_bytes = packet.pack(data)
-
+        bits = bytes_to_bit_list(packet_bytes)
+        bit_groups = bytes_to_grouped_bit_list(packet_bytes)
+        print(bit_groups[:6])
+        print(bit_groups[6:])
         # we need to now set up the aloha scheme
         # we will try to transmit and see if we get an ACK back
         # we try at first, if we fail we do some exponential backoff and send again until we get an ack
@@ -56,6 +59,7 @@ class EthaNET:
             ack_packet = self.receive(timeout=50)
             if ack_packet is None:
                 logger.debug(f"No ACK received for seq: {self.send_seq_num}")
+                break # TODO remove this once done debugging
             elif self._ack_recv(ack_packet):
                 logger.debug(f"Received ACK for seq: {self.send_seq_num}")
                 # increment the sequence number
