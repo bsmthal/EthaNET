@@ -79,6 +79,26 @@ blocks:
     coordinate: [520, 12.0]
     rotation: 0
     state: enabled
+- name: constellation1
+  id: variable_constellation
+  parameters:
+    comment: ''
+    const_points: '[-1-1j, -1+1j, 1+1j, 1-1j]'
+    dims: '1'
+    normalization: digital.constellation.AMPLITUDE_NORMALIZATION
+    npwr: '1.0'
+    precision: '8'
+    rot_sym: '4'
+    soft_dec_lut: None
+    sym_map: '[0, 1, 3, 2]'
+    type: qpsk
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [680, 16.0]
+    rotation: 0
+    state: enabled
 - name: costas_loop_bandwidth_in_cycles_per_sample
   id: variable_qtgui_range
   parameters:
@@ -97,9 +117,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [536, 1296.0]
+    coordinate: [632, 2032.0]
     rotation: 0
-    state: true
+    state: disabled
 - name: nfilts
   id: variable
   parameters:
@@ -109,9 +129,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [288, 1444.0]
+    coordinate: [384, 2184.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: offset
   id: variable_qtgui_range
   parameters:
@@ -130,7 +150,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [48, 480.0]
+    coordinate: [144, 1216.0]
     rotation: 0
     state: enabled
 - name: output_sps
@@ -142,9 +162,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [376, 1444.0]
+    coordinate: [472, 2184.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: rcc_taps
   id: variable_rrc_filter_taps
   parameters:
@@ -167,9 +187,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [104, 1448.0]
+    coordinate: [200, 2184.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: samp_rate
   id: variable
   parameters:
@@ -186,7 +206,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: '16'
+    value: '4'
   states:
     bus_sink: false
     bus_source: false
@@ -212,7 +232,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [712, 8.0]
+    coordinate: [1000, 8.0]
     rotation: 0
     state: enabled
 - name: analog_agc_xx_1
@@ -232,9 +252,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [464, 652.0]
+    coordinate: [560, 1384.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: analog_random_uniform_source_x_0_0_0
   id: analog_random_uniform_source_x
   parameters:
@@ -253,7 +273,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [48, 316.0]
+    coordinate: [144, 1056.0]
     rotation: 0
     state: disabled
 - name: analog_sig_source_x_0
@@ -276,9 +296,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [48, 648.0]
+    coordinate: [144, 1384.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: blocks_multiply_const_vxx_0
   id: blocks_multiply_const_vxx
   parameters:
@@ -296,9 +316,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [584, 336.0]
+    coordinate: [680, 1072.0]
     rotation: 0
-    state: true
+    state: disabled
 - name: blocks_multiply_xx_0
   id: blocks_multiply_xx
   parameters:
@@ -314,7 +334,30 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [312, 672.0]
+    coordinate: [408, 1408.0]
+    rotation: 0
+    state: disabled
+- name: blocks_selector_1
+  id: blocks_selector
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    enabled: 'True'
+    input_index: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '2'
+    num_outputs: '1'
+    output_index: '0'
+    showports: 'False'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [736, 232.0]
     rotation: 0
     state: enabled
 - name: blocks_skiphead_0
@@ -334,8 +377,47 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [112, 1040.0]
+    coordinate: [208, 1776.0]
     rotation: 180
+    state: disabled
+- name: blocks_tag_debug_0_0_1_0
+  id: blocks_tag_debug
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    display: 'True'
+    filter: '""'
+    name: stream_output
+    num_inputs: '1'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1392, 360.0]
+    rotation: 0
+    state: enabled
+- name: blocks_tagged_stream_mux_0_0
+  id: blocks_tagged_stream_mux
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    lengthtagname: packet_len
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    ninputs: '2'
+    tag_preserve_head_pos: '0'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1064, 288.0]
+    rotation: 0
     state: enabled
 - name: blocks_unpacked_to_packed_xx_0
   id: blocks_unpacked_to_packed_xx
@@ -353,7 +435,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1072, 916.0]
+    coordinate: [1168, 1656.0]
     rotation: 0
     state: disabled
 - name: digital_constellation_decoder_cb_0
@@ -369,35 +451,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [800, 928.0]
+    coordinate: [896, 1664.0]
     rotation: 0
     state: disabled
-- name: digital_constellation_modulator_0
-  id: digital_constellation_modulator
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: 'Unpack bytes into chunks of bits,
-
-      look up constellation symbol,
-
-      and apply RRC filter'
-    constellation: constellation
-    differential: 'False'
-    excess_bw: alpha
-    log: 'False'
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    samples_per_symbol: sps
-    truncate: 'False'
-    verbose: 'False'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [304, 308.0]
-    rotation: 0
-    state: enabled
 - name: digital_costas_loop_cc_0
   id: digital_costas_loop_cc
   parameters:
@@ -413,9 +469,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [544, 1152.0]
+    coordinate: [640, 1888.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: digital_fll_band_edge_cc_0
   id: digital_fll_band_edge_cc
   parameters:
@@ -439,9 +495,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [416, 872.0]
+    coordinate: [512, 1608.0]
     rotation: 180
-    state: true
+    state: disabled
 - name: digital_packet_headerparser_b_0
   id: digital_packet_headerparser_b
   parameters:
@@ -455,7 +511,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1008, 784.0]
+    coordinate: [1104, 1520.0]
     rotation: 0
     state: disabled
 - name: digital_symbol_sync_xx_0
@@ -483,7 +539,350 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [104, 1136.0]
+    coordinate: [200, 1876.0]
+    rotation: 0
+    state: disabled
+- name: epy_block_0
+  id: epy_block
+  parameters:
+    _source_code: "from gnuradio import gr\nimport pmt\nimport logging\n\nclass ExtractMCS(gr.basic_block):\n\
+      \    def __init__(self, selector_tag:str=\"mcs_selector\", length_tag_key:str=\"\
+      packet_len\"):\n        gr.basic_block.__init__(self,\n            name=\"Extract\
+      \ MCS from PDU\",\n            in_sig=None,\n            out_sig=None)\n   \
+      \     \n        self.selector_tag = selector_tag\n        self.length_tag_key\
+      \ = pmt.intern(length_tag_key)  # Convert key to PMT\n        \n        self.message_port_register_in(pmt.intern(\"\
+      pdu_in\"))\n        self.message_port_register_out(pmt.intern(\"header_out\"\
+      ))\n        self.message_port_register_out(pmt.intern(\"data_out\"))\n     \
+      \   self.message_port_register_out(pmt.intern(\"mcs_out\"))\n        \n    \
+      \    self.set_msg_handler(pmt.intern(\"pdu_in\"), self.handle_pdu)\n       \
+      \ \n        # Setup logging\n        logging.basicConfig(level=logging.DEBUG)\n\
+      \        self.logger = logging.getLogger(\"ExtractMCS\")\n\n    def handle_pdu(self,\
+      \ msg):\n        if not pmt.is_pair(msg):\n            self.logger.warning(\"\
+      Received malformed PDU message.\")\n            return  # Ignore malformed messages\n\
+      \        \n        meta = pmt.car(msg)  # Metadata\n        data = pmt.cdr(msg)\
+      \  # Payload (header + actual data)\n        \n        self.logger.debug(f\"\
+      Received PDU with metadata: {meta}\")\n        \n        if pmt.is_u8vector(data):\n\
+      \            data_bytes = pmt.u8vector_elements(data)\n            \n      \
+      \      if len(data_bytes) >= 6:\n                mcs_value = data_bytes[0] \
+      \ # First byte is MCS field\n                header = data_bytes[:6]  # First\
+      \ 6 bytes as header\n                payload = data_bytes[6:]  # Remaining bytes\
+      \ as payload\n                \n                self.logger.info(f\"Extracted\
+      \ MCS value: {mcs_value}\")\n                self.message_port_pub(pmt.intern(\"\
+      mcs_out\"), pmt.cons(pmt.PMT_NIL, pmt.from_long(mcs_value)))\n\n           \
+      \     # Add length tag to metadata\n                # updated_meta = pmt.dict_add(meta,\
+      \ self.length_tag_key, pmt.from_long(len(header)))\n\n                # Send\
+      \ header as a separate PDU\n                header_pdu = pmt.cons(meta, pmt.init_u8vector(len(header),\
+      \ header))\n                self.logger.debug(\"Sending header PDU.\")\n   \
+      \             self.message_port_pub(pmt.intern(\"header_out\"), header_pdu)\n\
+      \                \n                # Send payload as a separate PDU\n      \
+      \          payload_pdu = pmt.cons(meta, pmt.init_u8vector(len(payload), payload))\n\
+      \                self.logger.debug(\"Sending payload PDU.\")\n             \
+      \   self.message_port_pub(pmt.intern(\"data_out\"), payload_pdu)\n\n       \
+      \     else:\n                self.logger.warning(\"Payload is too short to contain\
+      \ a valid header.\")\n        else:\n            self.logger.warning(\"Payload\
+      \ is not in expected format (u8vector).\")\n"
+    affinity: ''
+    alias: ''
+    comment: 'Takes in the PDU from python land
+
+      and splits the header from it.
+
+      Also sets the selector block for MCS'
+    length_tag_key: '"packet_len"'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    selector_tag: '''mcs_selector'''
+  states:
+    _io_cache: ('Extract MCS from PDU', 'ExtractMCS', [('selector_tag', "'mcs_selector'"),
+      ('length_tag_key', "'packet_len'")], [('pdu_in', 'message', 1)], [('mcs_out',
+      'message', 1), ('data_out', 'message', 1), ('header_out', 'message', 1)], '',
+      ['length_tag_key', 'selector_tag'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [88, 320.0]
+    rotation: 0
+    state: enabled
+- name: epy_block_3
+  id: epy_block
+  parameters:
+    _source_code: "import numpy as np\nfrom gnuradio import gr, blocks, digital\n\
+      from gnuradio.filter import firdes\nimport pmt\n\nclass pdu_modulator(gr.basic_block):\n\
+      \    \"\"\"\n    Custom GNU Radio block that takes in a PDU of bytes, maps them\
+      \ to symbols,\n    applies RRC pulse shaping, and outputs a tagged complex stream.\n\
+      \    \"\"\"\n    def __init__(self, constellation=digital.bpsk_constellation(),\
+      \ sps=4, alpha=0.5, span=12,keep_front_transients=False,keep_back_transients=False):\n\
+      \        gr.sync_block.__init__(self,\n            name=\"pdu_modulator\",\n\
+      \            in_sig=None,\n            out_sig=[np.complex64])\n        \n \
+      \       self.constellation = constellation\n        self.sps = sps  # Samples\
+      \ per symbol\n        self.span =span\n        self.rrc_taps = firdes.root_raised_cosine(sps,\
+      \ sps, 1.0, alpha, span * sps)\n        self.keep_front_transients = keep_front_transients\n\
+      \        self.keep_back_transients = keep_back_transients\n        \n      \
+      \  self.set_tag_propagation_policy(gr.TPP_DONT)\n        \n        self.bits_per_symbol\
+      \ = int(np.log2(len(self.constellation.points())))\n\n        self.message_port_register_in(pmt.intern(\"\
+      Data in\"))\n        self.set_msg_handler(pmt.intern(\"Data in\"), self.handle_pdu)\n\
+      \        self.shaped_data = None\n\n    @staticmethod\n    def bits_to_decimal(bits):\n\
+      \        # Convert each row of bits into its decimal equivalent\n        return\
+      \ np.dot(bits, 2 ** np.arange(bits.shape[-1] - 1, -1, -1))\n    \n    def handle_pdu(self,\
+      \ msg):\n        # Extract PDU payload\n        meta = pmt.car(msg)  # Metadata\n\
+      \        data = pmt.cdr(msg)  # Payload (header + actual data)\n        # #\
+      \ payload = np.frombuffer(msg.to_string(), dtype=np.uint8)\n        # print(f\"\
+      data: {data}\")\n        # # Map bytes to constellation symbols\n        # bits_per_symbol\
+      \ = int(np.log2(len(self.constellation.points())))\n        payload = np.array(pmt.u8vector_elements(data),\
+      \ dtype=np.uint8)\n        # print(f\"payload: {payload}\")\n\n        # Convert\
+      \ bytes into bitstream\n        # print(f\"data: {type(data)}\")\n        bitstream\
+      \ = np.unpackbits(payload)\n        # print(f\"bitstream: {bitstream}\")\n\n\
+      \        # Ensure bitstream is a multiple of bits_per_symbol (pad with zeros\
+      \ if necessary)\n        extra_bits = len(bitstream) % self.bits_per_symbol\n\
+      \        if extra_bits != 0:\n            bitstream = np.pad(bitstream, (0,\
+      \ self.bits_per_symbol - extra_bits))\n\n        # Reshape bitstream into symbols\n\
+      \        # symbol_indices = np.packbits(bitstream.reshape(-1, self.bits_per_symbol),\
+      \ axis=-1).flatten()\n        symbol_indices = self.bits_to_decimal(bitstream.reshape((-1,self.bits_per_symbol)))\n\
+      \        # print(f\"just looking: {np.packbits(bitstream.reshape((-1, self.bits_per_symbol)),\
+      \ axis=-1)}\")\n        # print(f\"symbol indices: {symbol_indices}\")\n\n \
+      \       # Map symbol indices to constellation points\n        # symbols = np.array([self.constellation.map_to_points(int(idx))\
+      \ for idx in symbol_indices], dtype=np.complex64)\n        # Allocate array\
+      \ for constellation mapping\n        symbols = np.zeros(len(symbol_indices),\
+      \ dtype=np.complex64)\n        # print(f\"const points: {self.constellation.points()}\"\
+      )\n        # Map symbol indices to constellation points (FIX: Correct function\
+      \ call)\n        for index, indice in enumerate(symbol_indices):\n         \
+      \   # a = complex(0,0)\n            symbols[index] = self.constellation.map_to_points_v(indice)[0]\n\
+      \            # print(index,a)\n\n        # symbols = self.constellation.map_to_points(data)\n\
+      \        # print(f\"bits_per_sym: {self.bits_per_symbol}, symbols: {symbols}\"\
+      )\n        # Upsample and apply RRC filter\n        upsampled = np.zeros(len(symbols)\
+      \ * self.sps, dtype=np.complex64)\n        upsampled[::self.sps] = symbols \
+      \ # Insert symbols with spacing\n        self.shaped_data = np.convolve(upsampled,\
+      \ self.rrc_taps, mode='full')\n        # print(f\"shape of data: {self.shaped_data.shape}\"\
+      )\n        # print(f\"index: {0 if self.keep_front_transients else int(self.sps*self.span/2)}\
+      \ {len(self.shaped_data) if self.keep_back_transients else -int(self.sps*self.span/2)}\"\
+      )\n        self.shaped_data = self.shaped_data[0 if self.keep_front_transients\
+      \ else int(self.sps*self.span/2):len(self.shaped_data) if self.keep_back_transients\
+      \ else -int(self.sps*self.span/2)]\n        # print(f\"size of filter: {len(self.rrc_taps)},\
+      \ size of output: {len(self.shaped_data)}\")\n        \n        # Tagging: Set\
+      \ packet length and update stream tag\n        offset = self.nitems_written(0)\n\
+      \        self.add_item_tag(0, offset, gr.pmt.string_to_symbol(\"packet_len\"\
+      ), gr.pmt.from_long(len(self.shaped_data)))\n        \n        # # Output modulated\
+      \ samples\n        # self.produce(0, len(shaped))\n        # self.output_items[0][:len(shaped)]\
+      \ = shaped\n\n    def work(self, input_items, output_items):\n        if self.shaped_data\
+      \ is not None:\n            # Output modulated samples\n            output_items[0][:len(self.shaped_data)]\
+      \ = self.shaped_data\n            data_size = len(self.shaped_data)\n      \
+      \      self.shaped_data = None  # Reset after output\n            return data_size\n\
+      \        else:\n            return 0  # No data to output"
+    affinity: ''
+    alias: ''
+    alpha: '.5'
+    comment: 'BPSK for MCS0 for header.
+
+
+      This block takes in a PDU and modulates it
+
+      uses the RRC filter.
+
+
+      Set if you want to keep the filter transients at the end.
+
+      This may be nice if you want the radio to behave better
+
+      at packet transmition.'
+    constellation: constellation
+    keep_back_transients: 'False'
+    keep_front_transients: 'False'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    span: '12'
+    sps: sps
+  states:
+    _io_cache: ('pdu_modulator', 'pdu_modulator', [('constellation', '<gnuradio.digital.digital_python.constellation_bpsk
+      object at 0x7faf763506b0>'), ('sps', '4'), ('alpha', '0.5'), ('span', '12'),
+      ('keep_front_transients', 'False'), ('keep_back_transients', 'False')], [('Data
+      in', 'message', 1)], [('0', 'complex', 1)], '\n    Custom GNU Radio block that
+      takes in a PDU of bytes, maps them to symbols,\n    applies RRC pulse shaping,
+      and outputs a tagged complex stream.\n    ', ['constellation', 'keep_back_transients',
+      'keep_front_transients', 'span', 'sps'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [448, 472.0]
+    rotation: 0
+    state: enabled
+- name: epy_block_3_0
+  id: epy_block
+  parameters:
+    _source_code: "import numpy as np\nfrom gnuradio import gr, blocks, digital\n\
+      from gnuradio.filter import firdes\nimport pmt\n\nclass pdu_modulator(gr.basic_block):\n\
+      \    \"\"\"\n    Custom GNU Radio block that takes in a PDU of bytes, maps them\
+      \ to symbols,\n    applies RRC pulse shaping, and outputs a tagged complex stream.\n\
+      \    \"\"\"\n    def __init__(self, constellation=digital.bpsk_constellation(),\
+      \ sps=4, alpha=0.5, span=12,keep_front_transients=False,keep_back_transients=False):\n\
+      \        gr.sync_block.__init__(self,\n            name=\"pdu_modulator\",\n\
+      \            in_sig=None,\n            out_sig=[np.complex64])\n        \n \
+      \       self.constellation = constellation\n        self.sps = sps  # Samples\
+      \ per symbol\n        self.span =span\n        self.rrc_taps = firdes.root_raised_cosine(sps,\
+      \ sps, 1.0, alpha, span * sps)\n        self.keep_front_transients = keep_front_transients\n\
+      \        self.keep_back_transients = keep_back_transients\n        \n      \
+      \  self.set_tag_propagation_policy(gr.TPP_DONT)\n        \n        self.bits_per_symbol\
+      \ = int(np.log2(len(self.constellation.points())))\n\n        self.message_port_register_in(pmt.intern(\"\
+      Data in\"))\n        self.set_msg_handler(pmt.intern(\"Data in\"), self.handle_pdu)\n\
+      \        self.shaped_data = None\n\n    @staticmethod\n    def bits_to_decimal(bits):\n\
+      \        # Convert each row of bits into its decimal equivalent\n        return\
+      \ np.dot(bits, 2 ** np.arange(bits.shape[-1] - 1, -1, -1))\n    \n    def handle_pdu(self,\
+      \ msg):\n        # Extract PDU payload\n        meta = pmt.car(msg)  # Metadata\n\
+      \        data = pmt.cdr(msg)  # Payload (header + actual data)\n        # #\
+      \ payload = np.frombuffer(msg.to_string(), dtype=np.uint8)\n        # print(f\"\
+      data: {data}\")\n        # # Map bytes to constellation symbols\n        # bits_per_symbol\
+      \ = int(np.log2(len(self.constellation.points())))\n        payload = np.array(pmt.u8vector_elements(data),\
+      \ dtype=np.uint8)\n        print(f\"payload: {payload}\")\n\n        # Convert\
+      \ bytes into bitstream\n        # print(f\"data: {type(data)}\")\n        bitstream\
+      \ = np.unpackbits(payload)\n        print(f\"bitstream: {bitstream}\")\n\n \
+      \       # Ensure bitstream is a multiple of bits_per_symbol (pad with zeros\
+      \ if necessary)\n        extra_bits = len(bitstream) % self.bits_per_symbol\n\
+      \        if extra_bits != 0:\n            bitstream = np.pad(bitstream, (0,\
+      \ self.bits_per_symbol - extra_bits))\n\n        # Reshape bitstream into symbols\n\
+      \        # symbol_indices = np.packbits(bitstream.reshape(-1, self.bits_per_symbol),\
+      \ axis=-1).flatten()\n        symbol_indices = self.bits_to_decimal(bitstream.reshape((-1,self.bits_per_symbol)))\n\
+      \        # print(f\"just looking: {np.packbits(bitstream.reshape((-1, self.bits_per_symbol)),\
+      \ axis=-1)}\")\n        print(f\"symbol indices: {symbol_indices}\")\n\n   \
+      \     # Map symbol indices to constellation points\n        # symbols = np.array([self.constellation.map_to_points(int(idx))\
+      \ for idx in symbol_indices], dtype=np.complex64)\n        # Allocate array\
+      \ for constellation mapping\n        symbols = np.zeros(len(symbol_indices),\
+      \ dtype=np.complex64)\n        print(f\"const points: {self.constellation.points()}\"\
+      )\n        # Map symbol indices to constellation points (FIX: Correct function\
+      \ call)\n        for index, indice in enumerate(symbol_indices):\n         \
+      \   # a = complex(0,0)\n            symbols[index] = self.constellation.map_to_points_v(indice)[0]\n\
+      \            # print(index,a)\n\n        # symbols = self.constellation.map_to_points(data)\n\
+      \        print(f\"bits_per_sym: {self.bits_per_symbol}, symbols: {symbols}\"\
+      )\n        # Upsample and apply RRC filter\n        upsampled = np.zeros(len(symbols)\
+      \ * self.sps, dtype=np.complex64)\n        upsampled[::self.sps] = symbols \
+      \ # Insert symbols with spacing\n        self.shaped_data = np.convolve(upsampled,\
+      \ self.rrc_taps, mode='full')\n        print(f\"shape of data: {self.shaped_data.shape}\"\
+      )\n        print(f\"index: {0 if self.keep_front_transients else int(self.sps*self.span/2)}\
+      \ {len(self.shaped_data) if self.keep_back_transients else -int(self.sps*self.span/2)}\"\
+      )\n        self.shaped_data = self.shaped_data[0 if self.keep_front_transients\
+      \ else int(self.sps*self.span/2):len(self.shaped_data) if self.keep_back_transients\
+      \ else -int(self.sps*self.span/2)]\n        print(f\"size of filter: {len(self.rrc_taps)},\
+      \ size of output: {len(self.shaped_data)}\")\n        \n        # Tagging: Set\
+      \ packet length and update stream tag\n        offset = self.nitems_written(0)\n\
+      \        self.add_item_tag(0, offset, gr.pmt.string_to_symbol(\"packet_len\"\
+      ), gr.pmt.from_long(len(self.shaped_data)))\n        \n        # # Output modulated\
+      \ samples\n        # self.produce(0, len(shaped))\n        # self.output_items[0][:len(shaped)]\
+      \ = shaped\n\n    def work(self, input_items, output_items):\n        if self.shaped_data\
+      \ is not None:\n            # Output modulated samples\n            output_items[0][:len(self.shaped_data)]\
+      \ = self.shaped_data\n            data_size = len(self.shaped_data)\n      \
+      \      self.shaped_data = None  # Reset after output\n            return data_size\n\
+      \        else:\n            return 0  # No data to output"
+    affinity: ''
+    alias: ''
+    alpha: '.5'
+    comment: BPSK for MCS0 for payload
+    constellation: constellation
+    keep_back_transients: 'False'
+    keep_front_transients: 'False'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    span: '12'
+    sps: sps
+  states:
+    _io_cache: ('pdu_modulator', 'pdu_modulator', [('constellation', '<gnuradio.digital.digital_python.constellation_bpsk
+      object at 0x7faf75f95f70>'), ('sps', '4'), ('alpha', '0.5'), ('span', '12'),
+      ('keep_front_transients', 'False'), ('keep_back_transients', 'False')], [('Data
+      in', 'message', 1)], [('0', 'complex', 1)], '\n    Custom GNU Radio block that
+      takes in a PDU of bytes, maps them to symbols,\n    applies RRC pulse shaping,
+      and outputs a tagged complex stream.\n    ', ['constellation', 'keep_back_transients',
+      'keep_front_transients', 'span', 'sps'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [448, 144.0]
+    rotation: 0
+    state: enabled
+- name: epy_block_3_0_0
+  id: epy_block
+  parameters:
+    _source_code: "import numpy as np\nfrom gnuradio import gr, blocks, digital\n\
+      from gnuradio.filter import firdes\nimport pmt\n\nclass pdu_modulator(gr.basic_block):\n\
+      \    \"\"\"\n    Custom GNU Radio block that takes in a PDU of bytes, maps them\
+      \ to symbols,\n    applies RRC pulse shaping, and outputs a tagged complex stream.\n\
+      \    \"\"\"\n    def __init__(self, constellation=digital.bpsk_constellation(),\
+      \ sps=4, alpha=0.5, span=12,keep_front_transients=False,keep_back_transients=False):\n\
+      \        gr.sync_block.__init__(self,\n            name=\"pdu_modulator\",\n\
+      \            in_sig=None,\n            out_sig=[np.complex64])\n        \n \
+      \       self.constellation = constellation\n        self.sps = sps  # Samples\
+      \ per symbol\n        self.span =span\n        self.rrc_taps = firdes.root_raised_cosine(sps,\
+      \ sps, 1.0, alpha, span * sps)\n        self.keep_front_transients = keep_front_transients\n\
+      \        self.keep_back_transients = keep_back_transients\n        \n      \
+      \  self.set_tag_propagation_policy(gr.TPP_DONT)\n        \n        self.bits_per_symbol\
+      \ = int(np.log2(len(self.constellation.points())))\n\n        self.message_port_register_in(pmt.intern(\"\
+      Data in\"))\n        self.set_msg_handler(pmt.intern(\"Data in\"), self.handle_pdu)\n\
+      \        self.shaped_data = None\n\n    @staticmethod\n    def bits_to_decimal(bits):\n\
+      \        # Convert each row of bits into its decimal equivalent\n        return\
+      \ np.dot(bits, 2 ** np.arange(bits.shape[-1] - 1, -1, -1))\n    \n    def handle_pdu(self,\
+      \ msg):\n        # Extract PDU payload\n        meta = pmt.car(msg)  # Metadata\n\
+      \        data = pmt.cdr(msg)  # Payload (header + actual data)\n        # #\
+      \ payload = np.frombuffer(msg.to_string(), dtype=np.uint8)\n        # print(f\"\
+      data: {data}\")\n        # # Map bytes to constellation symbols\n        # bits_per_symbol\
+      \ = int(np.log2(len(self.constellation.points())))\n        payload = np.array(pmt.u8vector_elements(data),\
+      \ dtype=np.uint8)\n        print(f\"payload: {payload}\")\n\n        # Convert\
+      \ bytes into bitstream\n        # print(f\"data: {type(data)}\")\n        bitstream\
+      \ = np.unpackbits(payload)\n        print(f\"bitstream: {bitstream}\")\n\n \
+      \       # Ensure bitstream is a multiple of bits_per_symbol (pad with zeros\
+      \ if necessary)\n        extra_bits = len(bitstream) % self.bits_per_symbol\n\
+      \        if extra_bits != 0:\n            bitstream = np.pad(bitstream, (0,\
+      \ self.bits_per_symbol - extra_bits))\n\n        # Reshape bitstream into symbols\n\
+      \        # symbol_indices = np.packbits(bitstream.reshape(-1, self.bits_per_symbol),\
+      \ axis=-1).flatten()\n        symbol_indices = self.bits_to_decimal(bitstream.reshape((-1,self.bits_per_symbol)))\n\
+      \        # print(f\"just looking: {np.packbits(bitstream.reshape((-1, self.bits_per_symbol)),\
+      \ axis=-1)}\")\n        print(f\"symbol indices: {symbol_indices}\")\n\n   \
+      \     # Map symbol indices to constellation points\n        # symbols = np.array([self.constellation.map_to_points(int(idx))\
+      \ for idx in symbol_indices], dtype=np.complex64)\n        # Allocate array\
+      \ for constellation mapping\n        symbols = np.zeros(len(symbol_indices),\
+      \ dtype=np.complex64)\n        print(f\"const points: {self.constellation.points()}\"\
+      )\n        # Map symbol indices to constellation points (FIX: Correct function\
+      \ call)\n        for index, indice in enumerate(symbol_indices):\n         \
+      \   # a = complex(0,0)\n            symbols[index] = self.constellation.map_to_points_v(indice)[0]\n\
+      \            # print(index,a)\n\n        # symbols = self.constellation.map_to_points(data)\n\
+      \        print(f\"bits_per_sym: {self.bits_per_symbol}, symbols: {symbols}\"\
+      )\n        # Upsample and apply RRC filter\n        upsampled = np.zeros(len(symbols)\
+      \ * self.sps, dtype=np.complex64)\n        upsampled[::self.sps] = symbols \
+      \ # Insert symbols with spacing\n        self.shaped_data = np.convolve(upsampled,\
+      \ self.rrc_taps, mode='full')\n        print(f\"shape of data: {self.shaped_data.shape}\"\
+      )\n        print(f\"index: {0 if self.keep_front_transients else int(self.sps*self.span/2)}\
+      \ {len(self.shaped_data) if self.keep_back_transients else -int(self.sps*self.span/2)}\"\
+      )\n        self.shaped_data = self.shaped_data[0 if self.keep_front_transients\
+      \ else int(self.sps*self.span/2):len(self.shaped_data) if self.keep_back_transients\
+      \ else -int(self.sps*self.span/2)]\n        print(f\"size of filter: {len(self.rrc_taps)},\
+      \ size of output: {len(self.shaped_data)}\")\n        \n        # Tagging: Set\
+      \ packet length and update stream tag\n        offset = self.nitems_written(0)\n\
+      \        self.add_item_tag(0, offset, gr.pmt.string_to_symbol(\"packet_len\"\
+      ), gr.pmt.from_long(len(self.shaped_data)))\n        \n        # # Output modulated\
+      \ samples\n        # self.produce(0, len(shaped))\n        # self.output_items[0][:len(shaped)]\
+      \ = shaped\n\n    def work(self, input_items, output_items):\n        if self.shaped_data\
+      \ is not None:\n            # Output modulated samples\n            output_items[0][:len(self.shaped_data)]\
+      \ = self.shaped_data\n            data_size = len(self.shaped_data)\n      \
+      \      self.shaped_data = None  # Reset after output\n            return data_size\n\
+      \        else:\n            return 0  # No data to output"
+    affinity: ''
+    alias: ''
+    alpha: '.5'
+    comment: QPSK for MCS1 for payload.
+    constellation: constellation1
+    keep_back_transients: 'False'
+    keep_front_transients: 'False'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    span: '12'
+    sps: sps
+  states:
+    _io_cache: ('pdu_modulator', 'pdu_modulator', [('constellation', '<gnuradio.digital.digital_python.constellation_bpsk
+      object at 0x7faf739061b0>'), ('sps', '4'), ('alpha', '0.5'), ('span', '12'),
+      ('keep_front_transients', 'False'), ('keep_back_transients', 'False')], [('Data
+      in', 'message', 1)], [('0', 'complex', 1)], '\n    Custom GNU Radio block that
+      takes in a PDU of bytes, maps them to symbols,\n    applies RRC pulse shaping,
+      and outputs a tagged complex stream.\n    ', ['constellation', 'keep_back_transients',
+      'keep_front_transients', 'span', 'sps'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [448, 304.0]
     rotation: 0
     state: enabled
 - name: iio_pluto_sink_0_0
@@ -509,7 +908,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [784, 268.0]
+    coordinate: [880, 1004.0]
     rotation: 0
     state: disabled
 - name: iio_pluto_source_0
@@ -540,7 +939,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [32, 800.0]
+    coordinate: [128, 1540.0]
     rotation: 0
     state: disabled
 - name: import_0
@@ -556,32 +955,6 @@ blocks:
     coordinate: [8, 120.0]
     rotation: 0
     state: enabled
-- name: note_0
-  id: note
-  parameters:
-    alias: ''
-    comment: ''
-    note: RRC pulse shape
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [328, 248.0]
-    rotation: 0
-    state: enabled
-- name: note_1
-  id: note
-  parameters:
-    alias: ''
-    comment: ''
-    note: BPSK
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [568, 104.0]
-    rotation: 0
-    state: enabled
 - name: note_2
   id: note
   parameters:
@@ -592,7 +965,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [40, 256.0]
+    coordinate: [136, 992.0]
     rotation: 0
     state: enabled
 - name: note_3
@@ -605,24 +978,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1088, 48.0]
-    rotation: 0
-    state: enabled
-- name: pdu_pdu_to_tagged_stream_0
-  id: pdu_pdu_to_tagged_stream
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    tag: packet_len
-    type: byte
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [304, 192.0]
+    coordinate: [1384, 16.0]
     rotation: 0
     state: enabled
 - name: qtgui_const_sink_x_0_0
@@ -714,9 +1070,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [968, 1220.0]
+    coordinate: [1064, 1960.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: qtgui_eye_sink_x_0
   id: qtgui_eye_sink_x
   parameters:
@@ -748,7 +1104,7 @@ blocks:
     ctrlpanel: 'False'
     entags: 'True'
     grid: 'False'
-    gui_hint: ''
+    gui_hint: 'qtgui_tab@0 '
     label1: Signal 1
     label10: Signal 10
     label2: Signal 2
@@ -810,9 +1166,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1048, 396.0]
+    coordinate: [1144, 1128.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: qtgui_eye_sink_x_0_0_0
   id: qtgui_eye_sink_x
   parameters:
@@ -906,9 +1262,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [960, 1092.0]
+    coordinate: [1056, 1832.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: qtgui_freq_sink_x_1
   id: qtgui_freq_sink_x
   parameters:
@@ -987,7 +1343,41 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1048, 300.0]
+    coordinate: [1144, 1040.0]
+    rotation: 0
+    state: disabled
+- name: qtgui_tab
+  id: qtgui_tab_widget
+  parameters:
+    alias: ''
+    comment: ''
+    gui_hint: ''
+    label0: normal
+    label1: debug
+    label10: Tab 10
+    label11: Tab 11
+    label12: Tab 12
+    label13: Tab 13
+    label14: Tab 14
+    label15: Tab 15
+    label16: Tab 16
+    label17: Tab 17
+    label18: Tab 18
+    label19: Tab 19
+    label2: Tab 2
+    label3: Tab 3
+    label4: Tab 4
+    label5: Tab 5
+    label6: Tab 6
+    label7: Tab 7
+    label8: Tab 8
+    label9: Tab 9
+    num_tabs: '2'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1120, 8.0]
     rotation: 0
     state: enabled
 - name: qtgui_time_sink_x_0
@@ -1018,10 +1408,10 @@ blocks:
     color8: dark red
     color9: dark green
     comment: ''
-    ctrlpanel: 'False'
+    ctrlpanel: 'True'
     entags: 'True'
     grid: 'False'
-    gui_hint: 0,0
+    gui_hint: qtgui_tab@0 :0,0
     label1: Transmit re
     label10: Signal 10
     label2: Transmit im
@@ -1045,7 +1435,7 @@ blocks:
     marker9: '-1'
     name: '""'
     nconnections: '1'
-    size: '1024'
+    size: '624'
     srate: samp_rate
     stemplot: 'False'
     style1: '1'
@@ -1061,9 +1451,9 @@ blocks:
     tr_chan: '0'
     tr_delay: '0'
     tr_level: '0.0'
-    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_mode: qtgui.TRIG_MODE_TAG
     tr_slope: qtgui.TRIG_SLOPE_POS
-    tr_tag: '""'
+    tr_tag: '"packet_len"'
     type: complex
     update_time: '0.10'
     width1: '1'
@@ -1077,16 +1467,16 @@ blocks:
     width8: '1'
     width9: '1'
     ylabel: Amplitude
-    ymax: '1'
-    ymin: '-1'
+    ymax: '1.2'
+    ymin: '-1.2'
     yunit: '""'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1048, 204.0]
+    coordinate: [1152, 928.0]
     rotation: 0
-    state: true
+    state: enabled
 - name: qtgui_time_sink_x_0_0_0_0_0_0
   id: qtgui_time_sink_x
   parameters:
@@ -1181,7 +1571,59 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [960, 1324.0]
+    coordinate: [1056, 2064.0]
+    rotation: 0
+    state: disabled
+- name: virtual_sink_0
+  id: virtual_sink
+  parameters:
+    alias: ''
+    comment: ''
+    stream_id: header
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [720, 504.0]
+    rotation: 0
+    state: enabled
+- name: virtual_sink_1
+  id: virtual_sink
+  parameters:
+    alias: ''
+    comment: ''
+    stream_id: transmit_data
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1376, 272.0]
+    rotation: 0
+    state: enabled
+- name: virtual_source_0
+  id: virtual_source
+  parameters:
+    alias: ''
+    comment: ''
+    stream_id: transmit_data
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [120, 1144.0]
+    rotation: 0
+    state: enabled
+- name: virtual_source_0_0
+  id: virtual_source
+  parameters:
+    alias: ''
+    comment: ''
+    stream_id: header
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [912, 192.0]
     rotation: 0
     state: enabled
 - name: zeromq_rep_msg_sink_0
@@ -1197,7 +1639,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1000, 628.0]
+    coordinate: [1096, 1368.0]
     rotation: 0
     state: disabled
 - name: zeromq_req_msg_source_0
@@ -1215,7 +1657,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [744, 636.0]
+    coordinate: [840, 1368.0]
     rotation: 0
     state: disabled
 - name: zeromq_sub_msg_source_0
@@ -1233,13 +1675,12 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [40, 176.0]
+    coordinate: [16, 216.0]
     rotation: 0
     state: enabled
 
 connections:
 - [analog_agc_xx_1, '0', digital_fll_band_edge_cc_0, '0']
-- [analog_random_uniform_source_x_0_0_0, '0', digital_constellation_modulator_0, '0']
 - [analog_sig_source_x_0, '0', blocks_multiply_xx_0, '1']
 - [blocks_multiply_const_vxx_0, '0', blocks_multiply_xx_0, '0']
 - [blocks_multiply_const_vxx_0, '0', iio_pluto_sink_0_0, '0']
@@ -1247,9 +1688,11 @@ connections:
 - [blocks_multiply_const_vxx_0, '0', qtgui_freq_sink_x_1, '0']
 - [blocks_multiply_const_vxx_0, '0', qtgui_time_sink_x_0, '0']
 - [blocks_multiply_xx_0, '0', analog_agc_xx_1, '0']
+- [blocks_selector_1, '0', blocks_tagged_stream_mux_0_0, '1']
 - [blocks_skiphead_0, '0', digital_symbol_sync_xx_0, '0']
+- [blocks_tagged_stream_mux_0_0, '0', blocks_tag_debug_0_0_1_0, '0']
+- [blocks_tagged_stream_mux_0_0, '0', virtual_sink_1, '0']
 - [digital_constellation_decoder_cb_0, '0', blocks_unpacked_to_packed_xx_0, '0']
-- [digital_constellation_modulator_0, '0', blocks_multiply_const_vxx_0, '0']
 - [digital_costas_loop_cc_0, '0', digital_constellation_decoder_cb_0, '0']
 - [digital_costas_loop_cc_0, '0', qtgui_const_sink_x_0_0, '1']
 - [digital_costas_loop_cc_0, '0', qtgui_eye_sink_x_0_0_0, '0']
@@ -1257,9 +1700,21 @@ connections:
 - [digital_fll_band_edge_cc_0, '0', blocks_skiphead_0, '0']
 - [digital_symbol_sync_xx_0, '0', digital_costas_loop_cc_0, '0']
 - [digital_symbol_sync_xx_0, '0', qtgui_const_sink_x_0_0, '0']
+- [epy_block_0, data_out, epy_block_3_0, Data in]
+- [epy_block_0, data_out, epy_block_3_0_0, Data in]
+- [epy_block_0, header_out, epy_block_3, Data in]
+- [epy_block_0, mcs_out, blocks_selector_1, iindex]
+- [epy_block_3, '0', virtual_sink_0, '0']
+- [epy_block_3_0, '0', blocks_selector_1, '0']
+- [epy_block_3_0_0, '0', blocks_selector_1, '1']
 - [iio_pluto_source_0, '0', analog_agc_xx_1, '0']
-- [pdu_pdu_to_tagged_stream_0, '0', digital_constellation_modulator_0, '0']
-- [zeromq_sub_msg_source_0, out, pdu_pdu_to_tagged_stream_0, pdus]
+- [virtual_source_0, '0', blocks_multiply_const_vxx_0, '0']
+- [virtual_source_0, '0', blocks_multiply_xx_0, '0']
+- [virtual_source_0, '0', qtgui_eye_sink_x_0, '0']
+- [virtual_source_0, '0', qtgui_freq_sink_x_1, '0']
+- [virtual_source_0, '0', qtgui_time_sink_x_0, '0']
+- [virtual_source_0_0, '0', blocks_tagged_stream_mux_0_0, '0']
+- [zeromq_sub_msg_source_0, out, epy_block_0, pdu_in]
 
 metadata:
   file_format: 1

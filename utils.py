@@ -145,3 +145,12 @@ class Packet:
         )
 
         return header
+    
+
+def bytes_to_bit_list(byte_data):
+    """Convert a byte string or list of bytes into a list of 1s and 0s."""
+    return [int(bit) for byte in byte_data for bit in f"{byte:08b}"]
+
+def bytes_to_grouped_bit_list(byte_data):
+    """Convert a byte string or list of bytes into a list of lists of bits."""
+    return [[int(bit) for bit in f"{byte:08b}"] for byte in byte_data]

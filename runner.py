@@ -120,7 +120,7 @@ if __name__ == "__main__":
         "-m",
         "--mcs_level",
         type=int,
-        default=1,
+        default=0,
         help="Rate at which to send the message (0) [0-255]",
     )
     sender_parser.add_argument(
