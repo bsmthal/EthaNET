@@ -62,7 +62,7 @@ def main(**kwargs):
 # -----------------------------------------------------------------#
 
 if __name__ == "__main__":
-    parser = ap.ArgumentParser(prog="send.py")
+    parser = ap.ArgumentParser(prog="server.py")
 
     args = parser.parse_args()
     main(**vars(args))

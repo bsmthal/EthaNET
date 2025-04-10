@@ -65,7 +65,7 @@ def convertDestToBytes(destination: int) -> bytes:
 # -----------------------------------------------------------------#
 
 if __name__ == "__main__":
-    parser = ap.ArgumentParser(prog="send.py")
+    parser = ap.ArgumentParser(prog="client.py")
     parser.add_argument(
         "-f",
         "--file",
