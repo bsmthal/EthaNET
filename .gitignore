@@ -3,3 +3,4 @@ __pycache__
 gnuFlow.py
 .venv/
 *.txt
+!planB/**
